@@ -1,37 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class SearchBar extends React.Component {
+const SearchBar = ({ onTermSubmit }) => {
+    const [term, setTerm] = useState('')
 
-    state = { term: '' };
-
-    onInputChange = (event) => {
-        this.setState( { term: event.target.value })
-    };
-
-    onFormSubmit = (event) => {
+    const onFormSubmit = (event) => {
         event.preventDefault();
-
-        this.props.onTermSubmit(this.state.term);
-        // TODO: Make sure we call callback from parent component
+        onTermSubmit(term);
     };
 
-    render() {
-        return (
+    return (
         <div className="search-bar ui segment ">
-            <form action="" className="ui form" onSubmit={ this.onFormSubmit }>
+            <form action="" className="ui form" onSubmit={onFormSubmit}>
                 <div className="field">
                     <label htmlFor="search__input">Video Search</label>
                     <input
-                    type="text"
-                    id="search__input"
-                    value={ this.state.term }
-                    onChange={ this.onInputChange }
+                        type="text"
+                        id="search__input"
+                        value={term}
+                        onChange={(event) => setTerm(event.target.value)}
                     />
                 </div>
             </form>
         </div>
-        );
-    }
+    );
 }
+// class SearchBar extends React.Component {
+
+//     state = { term: '' };
+
+//     onInputChange = (event) => {
+//         this.setState( { term: event.target.value })
+//     };
+
+//     onFormSubmit = (event) => {
+//         event.preventDefault();
+
+//         this.props.onTermSubmit(this.state.term);
+
+//     };
+
+//     render() {
+//         return (
+//         <div className="search-bar ui segment ">
+//             <form action="" className="ui form" onSubmit={ this.onFormSubmit }>
+//                 <div className="field">
+//                     <label htmlFor="search__input">Video Search</label>
+//                     <input
+//                     type="text"
+//                     id="search__input"
+//                     value={ this.state.term }
+//                     onChange={ this.onInputChange }
+//                     />
+//                 </div>
+//             </form>
+//         </div>
+//         );
+//     }
+// }
 
 export default SearchBar;
